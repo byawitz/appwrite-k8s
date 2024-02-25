@@ -1,0 +1,135 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appwrite-maintenance
+  labels:
+    app: appwrite
+spec:
+  selector:
+    matchLabels:
+      app: appwrite
+  replicas: 1
+  template:
+    metadata:
+      name: appwrite-maintenance
+      labels:
+        app: appwrite
+    spec:
+      containers:
+        - name: appwrite-maintenance
+          image: appwrite/appwrite:1.4.13
+          imagePullPolicy: IfNotPresent
+          command:
+            - "maintenance"
+          env:
+            - name: _APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_ENV
+            - name: _APP_WORKER_PER_CORE
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_WORKER_PER_CORE
+            - name: _APP_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_DOMAIN
+            - name: _APP_DOMAIN_TARGET
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_DOMAIN_TARGET
+            - name: _APP_DOMAIN_FUNCTIONS
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_DOMAIN_FUNCTIONS
+            - name: _APP_OPENSSL_KEY_V1
+              valueFrom:
+                secretKeyRef:
+                  name: appwrite-secrets
+                  key: _APP_OPENSSL_KEY_V1
+            - name: _APP_REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_REDIS_HOST
+            - name: _APP_REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_REDIS_PORT
+            - name: _APP_REDIS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: appwrite-secrets
+                  key: _APP_REDIS_USER
+            - name: _APP_REDIS_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: appwrite-secrets
+                  key: _APP_REDIS_PASS
+            - name: _APP_DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_DB_HOST
+            - name: _APP_DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_DB_PORT
+            - name: _APP_DB_SCHEMA
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_DB_SCHEMA
+            - name: _APP_DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_DB_USER
+            - name: _APP_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: appwrite-secrets
+                  key: _APP_DB_PASS
+            - name: _APP_MAINTENANCE_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_MAINTENANCE_INTERVAL
+            - name: _APP_MAINTENANCE_RETENTION_EXECUTION
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_MAINTENANCE_RETENTION_EXECUTION
+            - name: _APP_MAINTENANCE_RETENTION_CACHE
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_MAINTENANCE_RETENTION_CACHE
+            - name: _APP_MAINTENANCE_RETENTION_ABUSE
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_MAINTENANCE_RETENTION_ABUSE
+            - name: _APP_MAINTENANCE_RETENTION_AUDIT
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_MAINTENANCE_RETENTION_AUDIT
+            - name: _APP_MAINTENANCE_RETENTION_USAGE_HOURLY
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_MAINTENANCE_RETENTION_USAGE_HOURLY
+            - name: _APP_MAINTENANCE_RETENTION_SCHEDULES
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_MAINTENANCE_RETENTION_SCHEDULES
+

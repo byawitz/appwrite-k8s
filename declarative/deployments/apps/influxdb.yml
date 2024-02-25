@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appwrite-influxdb
+  labels:
+    app: appwrite-influxdb
+spec:
+  selector:
+    matchLabels:
+      app: appwrite-influxdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: appwrite-influxdb
+    spec:
+      containers:
+        - image: appwrite/influxdb:1.5.0
+          name: influxdb
+          ports:
+            - containerPort: 8086
+          volumeMounts:
+            - name: appwrite-influxdb
+              mountPath: /var/lib/influxdb
+      volumes:
+        - name: appwrite-influxdb
+          persistentVolumeClaim:
+            claimName: appwrite-influxdb

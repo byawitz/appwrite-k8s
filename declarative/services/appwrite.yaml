@@ -7,7 +7,5 @@ spec:
     app: appwrite
   ports:
     - protocol: TCP
+      targetPort: http
       port: 80
-      targetPort: 80
-  type: NodePort
-  

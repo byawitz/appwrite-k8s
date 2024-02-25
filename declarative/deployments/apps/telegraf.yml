@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appwrite-telegraf
+  labels:
+    app: appwrite-telegraf
+spec:
+  selector:
+    matchLabels:
+      app: appwrite-telegraf
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: appwrite-telegraf
+    spec:
+      containers:
+        - image: appwrite/telegraf:1.4.0
+          name: telegraf
+          ports:
+            - containerPort: 8125
+          env:
+            - name: _APP_INFLUXDB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_INFLUXDB_HOST
+            - name: _APP_INFLUXDB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_INFLUXDB_PORT
+

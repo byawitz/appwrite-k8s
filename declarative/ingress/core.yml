@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: appwrite-ingress
+  labels:
+    app: appwrite
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTP
+    nginx.ingress.kubernetes.io/client-body-buffer-size: 200k
+    nginx.ingress.kubernetes.io/client-header-buffer-size: 100k
+    nginx.ingress.kubernetes.io/http2-max-header-size: 256k
+    nginx.ingress.kubernetes.io/large-client-header-buffers: 4 100k
+    nginx.ingress.kubernetes.io/proxy-body-size: 150m
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 256k
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1000"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "1000"
+    nginx.ingress.kubernetes.io/server-snippet: | 
+      client_header_buffer_size 100k;
+      large_client_header_buffers 4 100k;
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: test.appwrite.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: appwrite
+                port:
+                  number: 80

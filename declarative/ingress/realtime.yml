@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: appwrite-realtime-ingress
+  labels:
+    app: appwrite
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: test.appwrite.io
+      http:
+        paths:
+          - path: /v1/realtime
+            pathType: Prefix
+            backend:
+              service:
+                name: appwrite-realtime
+                port:
+                  number: 80
