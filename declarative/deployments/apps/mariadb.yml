@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appwrite-mariadb
+  labels:
+    app: appwrite-mariadb
+spec:
+  selector:
+    matchLabels:
+      app: appwrite-mariadb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: appwrite-mariadb
+    spec:
+      containers:
+        - image: mariadb:10.7
+          name: maraidb
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: appwrite-secrets
+                  key: _APP_DB_ROOT_PASS
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_DB_SCHEMA
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: appwrite
+                  key: _APP_DB_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: appwrite-secrets
+                  key: _APP_DB_PASS
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: appwrite-mariadb
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: appwrite-mariadb
+          persistentVolumeClaim:
+            claimName: appwrite-mariadb

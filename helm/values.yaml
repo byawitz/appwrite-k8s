@@ -1,0 +1,144 @@
+namespace: appwrite
+
+replicas:
+  appwrite:
+    min: 1
+    max: 10
+    autoscaling: true
+    targetCPUUtilizationPercentage: 80
+  realtime:
+    min: 1
+    max: 10
+    autoscaling: true
+    targetCPUUtilizationPercentage: 80
+  workers:
+    min: 1
+    max: 2
+    autoscaling: true
+    targetCPUUtilizationPercentage: 80
+  queues:
+    min: 1
+    max: 2
+    autoscaling: true
+    targetCPUUtilizationPercentage: 80
+
+image:
+  repository: appwrite
+  pullPolicy: IfNotPresent
+  tag: ""
+
+appwrite:
+  usages: true
+
+# Appwrite specific 👇
+env: production
+locale: en
+options_abuse: enabled
+options_force_https: disabled
+options_functions_force_https: disabled
+options_router_protection: disabled
+openssl_key_v1: your-secret-key
+domain: localhost
+domain_functions: functions.localhost
+domain_target: localhost
+console_whitelist_root: enabled
+console_whitelist_emails:
+console_whitelist_ips:
+system_email_name: appwrite
+system_email_address: team@appwrite.io
+system_response_format:
+system_security_email_address: certs@appwrite.io
+usage_stats: enabled
+logging_provider:
+logging_config:
+usage_aggregation_interval: 30
+usage_timeseries_interval: 30
+usage_database_interval: 900
+worker_per_core: 6
+redis_host: redis
+redis_port: 6379
+redis_user:
+redis_pass:
+db_host: mariadb
+db_port: 3306
+db_schema: appwrite
+db_user: user
+db_pass: password
+db_root_pass: rootsecretpassword
+influxdb_host: influxdb
+influxdb_port: 8086
+statsd_host: telegraf
+statsd_port: 8125
+smtp_host:
+smtp_port:
+smtp_secure:
+smtp_username:
+smtp_password:
+sms_provider:
+sms_from:
+storage_limit: 30000000
+storage_preview_limit: 20000000
+storage_antivirus: disabled
+storage_antivirus_host: clamav
+storage_antivirus_port: 3310
+storage_device: local
+storage_s3_access_key:
+storage_s3_secret:
+storage_s3_region: us-east-1
+storage_s3_bucket:
+storage_do_spaces_access_key:
+storage_do_spaces_secret:
+storage_do_spaces_region: us-east-1
+storage_do_spaces_bucket:
+storage_backblaze_access_key:
+storage_backblaze_secret:
+storage_backblaze_region: us-west-004
+storage_backblaze_bucket:
+storage_linode_access_key:
+storage_linode_secret:
+storage_linode_region: eu-central-1
+storage_linode_bucket:
+storage_wasabi_access_key:
+storage_wasabi_secret:
+storage_wasabi_region: eu-central-1
+storage_wasabi_bucket:
+functions_size_limit: 30000000
+functions_timeout: 900
+functions_build_timeout: 900
+functions_containers: 10
+functions_cpus: 0
+functions_memory: 0
+functions_memory_swap: 0
+functions_runtimes: node-16.0,php-8.0,python-3.9,ruby-3.0
+executor_secret: your-secret-key
+executor_host: http://appwrite-executor/v1
+executor_runtime_network: appwrite_runtimes
+functions_envs: node-16.0,php-7.4,python-3.9,ruby-3.0
+functions_inactive_threshold: 60
+dockerhub_pull_username:
+dockerhub_pull_password:
+dockerhub_pull_email:
+open_runtimes_network: appwrite_runtimes
+functions_runtimes_network: runtimes
+docker_hub_username:
+docker_hub_password:
+functions_maintenance_interval: 3600
+vcs_github_app_name:
+vcs_github_private_key:
+vcs_github_app_id:
+vcs_github_client_id:
+vcs_github_client_secret:
+vcs_github_webhook_secret:
+maintenance_interval: 86400
+maintenance_retention_cache: 2592000
+maintenance_retention_execution: 1209600
+maintenance_retention_audit: 1209600
+maintenance_retention_abuse: 86400
+maintenance_retention_usage_hourly: 8640000
+maintenance_retention_schedules: 86400
+graphql_max_batch_size: 10
+graphql_max_complexity: 250
+graphql_max_depth: 3
+migrations_firebase_client_id:
+migrations_firebase_client_secret:
+assistant_openai_api_key:

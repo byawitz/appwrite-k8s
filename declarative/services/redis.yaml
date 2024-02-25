@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: appwrite-redis
+spec:
+  selector:
+    app: appwrite-redis
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379

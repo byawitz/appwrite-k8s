@@ -1,0 +1,14 @@
+namespace: appwrite-dev
+
+replicas:
+  appwrite:
+    autoscaling: false
+  realtime:
+    autoscaling: false
+  workers:
+    autoscaling: false
+  queues:
+    autoscaling: false
+
+# Appwrite specific 👇
+env: development

@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appwrite-appwrite
+  labels:
+    app: appwrite
+spec:
+  selector:
+    matchLabels:
+      app: appwrite
+  replicas: 1
+  template:
+    metadata:
+      name: appwrite-appwrite
+      labels:
+        app: appwrite
+    spec:
+      containers:
+        - name: appwrite-appwrite
+          image: appwrite/appwrite:1.4.13
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: http
+          envFrom:
+            - configMapRef:
+                name: appwrite
+            - secretRef:
+                name: appwrite-secrets
+          volumeMounts:
+            - mountPath: /storage/uploads
+              name: appwrite-uploads
+            - mountPath: /storage/cache
+              name: appwrite-cache
+            - mountPath: /storage/config
+              name: appwrite-config
+            - mountPath: /storage/certificates
+              name: appwrite-certificates
+            - mountPath: /storage/functions
+              name: appwrite-functions
+      volumes:
+        - name: appwrite-uploads
+          persistentVolumeClaim:
+            claimName: appwrite-uploads
+        - name: appwrite-cache
+          persistentVolumeClaim:
+            claimName: appwrite-cache
+        - name: appwrite-config
+          persistentVolumeClaim:
+            claimName: appwrite-config
+        - name: appwrite-certificates
+          persistentVolumeClaim:
+            claimName: appwrite-certificates
+        - name: appwrite-functions
+          persistentVolumeClaim:
+            claimName: appwrite-functions
