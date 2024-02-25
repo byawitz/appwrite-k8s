@@ -3,25 +3,23 @@ kind: Deployment
 metadata:
   name: appwrite-appwrite
   labels:
-    app: appwrite
+    app: appwrite-appwrite
 spec:
   selector:
     matchLabels:
-      app: appwrite
+      app: appwrite-appwrite
   replicas: 1
   template:
     metadata:
       name: appwrite-appwrite
       labels:
-        app: appwrite
+        app: appwrite-appwrite
     spec:
       containers:
         - name: appwrite-appwrite
           image: appwrite/appwrite:1.4.13
-          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
-              name: http
           envFrom:
             - configMapRef:
                 name: appwrite

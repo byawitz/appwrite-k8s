@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: appwrite-mariadb
+  name: appwrite-influxdb
   labels:
     app: appwrite
 spec:

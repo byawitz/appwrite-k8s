@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appwrite-assistant
+  labels:
+    app: appwrite-assistant
+spec:
+  selector:
+    matchLabels:
+      app: appwrite-assistant
+  replicas: 1
+  template:
+    metadata:
+      name: appwrite-assistant
+      labels:
+        app: appwrite-assistant
+    spec:
+      containers:
+        - name: appwrite-assistant
+          image: appwrite/assistant:0.2.2
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: _APP_ASSISTANT_OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: appwrite-secrets
+                  key: _APP_ASSISTANT_OPENAI_API_KEY

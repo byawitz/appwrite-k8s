@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appwrite-redis
+  labels:
+    app: appwrite-redis
+spec:
+  selector:
+    matchLabels:
+      app: appwrite-redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: appwrite-redis
+    spec:
+      containers:
+        - image: redis:7.0.4-alpine
+          name: redis
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: appwrite-redis
+              mountPath: /data
+      volumes:
+        - name: appwrite-redis
+          persistentVolumeClaim:
+            claimName: appwrite-redis
