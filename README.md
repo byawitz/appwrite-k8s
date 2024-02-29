@@ -24,7 +24,7 @@ This repo is aiming to show how to deploy Appwrite into a Kubernetes cluster whi
 
 1. The K8s cluster assumes you're using [Ingress-Nginx](https://kubernetes.github.io/ingress-nginx/) as your ingress provider.
 2. You must use an external storage driver to give both the Docker Swarm and the Kubernetes cluster access to it.
-3. For the value [`_APP_EXECUTOR_HOST`](./declarative/config/env.yml#74) you should use a publicly available address either IP or domain, it will probably be best to use domain-name.
+3. For the value [`_APP_EXECUTOR_HOST`](./declarative/config/env.yml#L74) you should use a publicly available address either IP or domain, it will probably be best to use domain-name.
 
 ### How to approach
 
