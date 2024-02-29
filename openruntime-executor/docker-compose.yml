@@ -1,0 +1,98 @@
+x-logging: &x-logging
+  logging:
+    driver: 'json-file'
+    options:
+      max-file: '5'
+      max-size: '10m'
+
+version: '3.8'
+
+services:
+  openruntimes-executor-first:
+    container_name: openruntimes-executor-first
+    hostname: openruntimes-executor-first
+    <<: *x-logging
+    restart: unless-stopped
+    stop_signal: SIGINT
+    image: openruntimes/executor:0.4.5
+    networks:
+      openruntimes-runtimes:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp:rw
+    environment:
+      - OPR_EXECUTOR_ENV
+      - OPR_EXECUTOR_RUNTIMES
+      - OPR_EXECUTOR_STORAGE_DEVICE
+      - OPR_EXECUTOR_STORAGE_S3_BUCKET
+      - OPR_EXECUTOR_STORAGE_S3_ACCESS_KEY
+      - OPR_EXECUTOR_STORAGE_S3_REGION
+      - OPR_EXECUTOR_STORAGE_S3_SECRET
+      - OPR_EXECUTOR_INACTIVE_TRESHOLD
+      - OPR_EXECUTOR_MAINTENANCE_INTERVAL
+      - OPR_EXECUTOR_NETWORK
+      - OPR_EXECUTOR_SECRET
+      - OPR_EXECUTOR_LOGGING_PROVIDER
+      - OPR_EXECUTOR_LOGGING_CONFIG
+      - OPR_EXECUTOR_DOCKER_HUB_USERNAME
+      - OPR_EXECUTOR_DOCKER_HUB_PASSWORD
+      - OPR_EXECUTOR_RUNTIME_VERSIONS
+
+  openruntimes-executor-second:
+    container_name: openruntimes-executor-second
+    hostname: openruntimes-executor-second
+    <<: *x-logging
+    restart: unless-stopped
+    stop_signal: SIGINT
+    image: openruntimes/executor:0.4.5
+    networks:
+      openruntimes-runtimes:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp:rw
+    environment:
+      - OPR_EXECUTOR_ENV
+      - OPR_EXECUTOR_RUNTIMES
+      - OPR_EXECUTOR_STORAGE_DEVICE
+      - OPR_EXECUTOR_STORAGE_S3_BUCKET
+      - OPR_EXECUTOR_STORAGE_S3_ACCESS_KEY
+      - OPR_EXECUTOR_STORAGE_S3_REGION
+      - OPR_EXECUTOR_STORAGE_S3_SECRET
+      - OPR_EXECUTOR_INACTIVE_TRESHOLD
+      - OPR_EXECUTOR_MAINTENANCE_INTERVAL
+      - OPR_EXECUTOR_NETWORK
+      - OPR_EXECUTOR_SECRET
+      - OPR_EXECUTOR_LOGGING_PROVIDER
+      - OPR_EXECUTOR_LOGGING_CONFIG
+      - OPR_EXECUTOR_DOCKER_HUB_USERNAME
+      - OPR_EXECUTOR_DOCKER_HUB_PASSWORD
+      - OPR_EXECUTOR_RUNTIME_VERSIONS
+
+  openruntimes-proxy:
+    container_name: openruntimes-proxy
+    hostname: openruntimes-proxy
+    image: openruntimes/proxy:0.3.1
+    <<: *x-logging
+    restart: unless-stopped
+    stop_signal: SIGINT
+    networks:
+      openruntimes-runtimes:
+    ports:
+      - 9800:80
+    environment:
+      - OPR_PROXY_ALGORITHM
+      - OPR_PROXY_WORKER_PER_CORE
+      - OPR_PROXY_EXECUTORS
+      - OPR_PROXY_HEALTHCHECK_INTERVAL
+      - OPR_PROXY_MAX_TIMEOUT
+      - OPR_PROXY_ENV
+      - OPR_PROXY_EXECUTOR_SECRET
+      - OPR_PROXY_SECRET
+      - OPR_PROXY_LOGGING_PROVIDER
+      - OPR_PROXY_LOGGING_CONFIG
+      - OPR_PROXY_HEALTHCHECK
+      - OPR_PROXY_HEALTHCHECK_URL
+
+networks:
+  openruntimes-runtimes:
+    name: openruntimes-runtimes
