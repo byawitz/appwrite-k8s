@@ -36,10 +36,33 @@ For percentile 95 a thin k8s client could be sufficient, the recommendation is t
 
 You'll find two types of ways to deploy Appwrite in a k8s environments.
 
-| Type                         | Status       |
-|------------------------------|--------------|
-| [Declarative](./declarative) | β - Workable |
-| [Helm](./helm)               | WIP          |
+| Type                         | Status                                  |
+|------------------------------|-----------------------------------------|
+| [Imperative](./imperative)   | Created automatically after each commit |
+| [Declarative](./declarative) | β - Workable                            |
+| [Helm](./helm)               | WIP                                     |
+
+## Imperative
+
+Run this, _good for quick test_
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/byawitz/appwrite-k8s/main/imperative/appwrite.yml
+```
+
+<details>
+<summary>Imperative Pre-hook</summary>
+To add the pre-commit run
+Add this to your `.git/hooks/pre-commit` file.
+
+```shell
+#!/usr/bin/env bash
+
+bash merge.sh
+git add imperative/appwrite.yml
+```
+
+</details>
 
 ## Declarative
 
