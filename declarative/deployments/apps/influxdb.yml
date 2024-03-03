@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: appwrite-influxdb
+  namespace: appwrite
   labels:
     app: appwrite-influxdb
 spec:
@@ -17,9 +18,15 @@ spec:
     spec:
       containers:
         - image: appwrite/influxdb:1.5.0
+          imagePullPolicy: IfNotPresent
           name: influxdb
           ports:
             - containerPort: 8086
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            readOnlyRootFilesystem: false
+            runAsUser: 1000
           volumeMounts:
             - name: appwrite-influxdb
               mountPath: /var/lib/influxdb

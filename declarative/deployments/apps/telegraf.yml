@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: appwrite-telegraf
+  namespace: appwrite
   labels:
     app: appwrite-telegraf
 spec:
@@ -17,7 +18,13 @@ spec:
     spec:
       containers:
         - image: appwrite/telegraf:1.4.0
+          imagePullPolicy: IfNotPresent
           name: telegraf
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            readOnlyRootFilesystem: false
           ports:
             - containerPort: 8125
           env:

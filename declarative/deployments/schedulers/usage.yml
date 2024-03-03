@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: appwrite-usage
+  namespace: appwrite
   labels:
     app: appwrite
 spec:

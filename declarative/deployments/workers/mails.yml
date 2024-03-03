@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: appwrite-mails
+  namespace: appwrite
   labels:
     app: appwrite
 spec:
@@ -18,9 +19,9 @@ spec:
       containers:
         - name: appwrite-mails
           image: appwrite/appwrite:1.4.13
+          imagePullPolicy: IfNotPresent
           command:
             - "worker-mails"
-          imagePullPolicy: IfNotPresent
           env:
             - name: _APP_ENV
               valueFrom:

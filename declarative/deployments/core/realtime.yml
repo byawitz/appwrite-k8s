@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: appwrite-realtime
+  namespace: appwrite
   labels:
     app: appwrite-realtime
 spec:

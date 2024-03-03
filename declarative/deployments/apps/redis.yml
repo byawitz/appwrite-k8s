@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: appwrite-redis
+  namespace: appwrite
   labels:
     app: appwrite-redis
 spec:
@@ -17,7 +18,13 @@ spec:
     spec:
       containers:
         - image: redis:7.0.4-alpine
+          imagePullPolicy: IfNotPresent
           name: redis
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            readOnlyRootFilesystem: false
           ports:
             - containerPort: 6379
           volumeMounts:

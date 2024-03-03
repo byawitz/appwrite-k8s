@@ -1,6 +1,7 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
+  namespace: appwrite
   name: appwrite-realtime-autoscaler
 spec:
   scaleTargetRef:

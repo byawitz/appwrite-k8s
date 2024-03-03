@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: appwrite-realtime-ingress
+  namespace: appwrite
   labels:
     app: appwrite-realtime
 spec:

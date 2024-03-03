@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-yml_files=("./declarative/config/env.yml"
+yml_files=("./declarative/_/namespace.yml"
+"./declarative/config/env.yml"
 "./declarative/deployments/apps/influxdb.yml"
 "./declarative/deployments/apps/mariadb.yml"
 "./declarative/deployments/apps/redis.yml"
@@ -24,7 +25,7 @@ yml_files=("./declarative/config/env.yml"
 "./declarative/hpa/appwrite.yml"
 "./declarative/hpa/realtime.yml"
 "./declarative/ingress/core.yml"
-"./declarative/ingress/core.yml"
+"./declarative/ingress/realtime.yml"
 "./declarative/secrets/env_secrets.yaml"
 "./declarative/services/appwrite.yaml"
 "./declarative/services/influxdb.yaml"
@@ -42,8 +43,9 @@ yml_files=("./declarative/config/env.yml"
 "./declarative/volumes/redis.yml"
 "./declarative/volumes/uploads.yml")
 
+echo '' > imperative/appwrite.yml
 
 for file in ${yml_files[@]}; do
-  cat $file >> imperative/appwrite.yml
   printf '\n---\n' >> imperative/appwrite.yml
+  cat $file >> imperative/appwrite.yml
 done
